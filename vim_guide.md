@@ -50,17 +50,19 @@ Used to do something to the selected word (or motion), basically like grammar it
 
 > **COMMON SHORTCUT:** Doubling an operator applies that action to the entire current line. For ex, `dd` means delete current line, `yy` means yank current line, and so on.
 
-> **NOTE:** Motion can be any noun with modifier or counts, like `d3w` mean delete the next 3 words, or `di(` means delete inside parentheses. Can also be special motions, like `d$` deletes till end of line.
+> **NOTE:** Motion can be any noun with modifier or counts, like `d3w` mean delete the next 3 words, or `di(` means delete inside parentheses. Can also be special motions, like `d$` deletes till end of line. Motion can also be selected text in `VISUAL` Mode.
 ### Common Operations
 ---
 |Command|What it is used for|
 |:-----:|-------------------|
 |`d{motion}`|Deletes something.| 
 |`y{motion}`|Copy selected text or the motion.|
+|`c{motion}`|Change selected text or the motion.|
 |`p`| Paste **after** the cursor.|
 |`P`|Paste **before** the cursor.|
 |`dd`|Delete current line. (Special case of `d`)|
 |`yy`|Copy current line. (Special case of `y`)|
+|`cc`|Changes the current line (special case of `c`)|
 ### Undo/Redo
 ---
 |Command|What it is used for|
