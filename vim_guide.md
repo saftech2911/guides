@@ -17,9 +17,10 @@ Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=y
 |`COMMAND`|Used for typing vim script commands or common commands for navigation, setting options, or writing changes or quitting vim| Press `:` followed by the command, like `q` for quit, `w` for write, `wq` for write and quit, `q!` for quit without saving changes, etc.
 
 ## Motions (Nouns)
-Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode
+Motions define *where* the cursor moves to. Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode.
 
-Can be used independently (without verbs or modifiers)
+
+Can be used independently (without verbs or modifiers), OR with verbs to do something to the motion.
 
 ### Basic Navigation
 ---
@@ -119,7 +120,37 @@ You can prefix any nouns (movements) or verbs (edits) or other commands in the `
 Example: `5j` moves 5 lines down, `3w` moves 3 words forward, `d6w` deletes 6 words, `3p` pastes what was yanked 3 times, `5dd` means delete 5 lines and so on
 
 ## Modifiers
-***TODO***
+**Modifiers** are keys used between an operator (verb) and a text object (noun) to alter the scope of the action.
+
+For example, `dw`, where `w` is a regular motion without any modifiers, would delete from current position to end of the word, but `diw`, where `w` is a text object with the modifier `i` (inner), would delete the entire word wherever the cursor is within the word (verbose: delete (`d`) inner (`i`) word (`w`))
+
+Modifiers of interest:
+|Modifier|What it is used for|
+|:-----:|-------------------|
+|`i`| Inside the text object(s), excludes the delimiters defining the object|
+|`a`| Around the text object(s), includes the delimiters defining the object|
+
+> **NOTE:** Can **ONLY** be used with the specified text objects (nouns) below.
+
+## Text Objects (Nouns)
+Text objects define what container you're acting on, *regardless* of cursor position. 
+
+The text object ***ALWAYS*** means the **WHOLE** container. For example, if the cursor is in the middle of the word, `w` as a motion (as in `dw`) means *from here till the end of word*, whereas `w` as a dext object (as in `diw`) means *the whole word* (regardless of where the cursor is).
+
+These **CANNOT** be used standalone at all, always need i/a modifiers, and always come after a verb/operator. So the syntax for using text objects is always `<verb><modifier><text object>`
+
+|Text Object|What it is used for|
+|:-----:|-------------------|
+|`w`|word (delimited by whitespace or other non-alphanumeric characters)|
+|`W`|WORD (delimited by whitespace **only**)|
+|`s`| Sentence (defined as a chunk of text ending with a punctuation mark (`., !, or ?`) followed by a space, a tab, or an end-of-line character.)|
+|`p`|Paragraph (block of text separated by blank lines)|
+|`(` or `)` or `b`|Parentheses block (inside/around `()`)|
+|`[` or`]`| Brackets block (inside/around `[]`)|
+|`{` or `}` or `B`| Braces block (inside/around `{}`)|
+|`<` or `>`| Angle bracket block (inside/around `<>`)|
+|`"`| Double quoted string (inside/around `""`)|
+|`'`| Single quoted string (inside/around `''`)|
 
 ## Complete VIM grammar structure for all commands
 The complete picture is 
@@ -155,6 +186,6 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`set mouse=a`|Activates mouse usage|
 |`set tabstop=4`|Changes tab whitespace to 4 characters|
 |`set shiftwidth=4`|Changes spacing of indentation to 4 characters|
-|`colorscheme <some colorscheme>`|Changes colorscheme (examples are `slate` and others, use `Tab` to go through the options)
+|`colorscheme <some colorscheme>`|Changes colorscheme (examples are `slate`, `retrobox` and others, use `Tab` to go through the options)
 
 > **NOTE:** The current options are written in VimScript, which are used in `.vimrc` and `init.vim` natively. Modern neovim configurations are written in Lua in `init.lua`, so uuse the corresponding syntax
