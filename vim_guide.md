@@ -14,8 +14,10 @@ Modes of interest are:
 |`VISUAL`|Select text using keyboard to delete, copy/yank, etc.|<ul><li>`v` for selecting by character</li><li>`V` for selecting by **line**</li><li>`<C-v>` for selecting **blocks** of text across lines.</ul>
 |`COMMAND`|Used for typing vim script commands or common commands for navigation, setting options, or writing changes or quitting vim| Press `:` followed by the command, like `q` for quit, `w` for write, `wq` for write and quit, `q!` for quit without saving changes, etc.
 
-## Nouns (a.k.a. Movements)
+## Motions (Nouns)
 Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode
+
+Can be used independently (without verbs or modifiers)
 
 ### Basic Navigation
 ---
@@ -87,12 +89,24 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`u`|Undo (like a stack)|
 |`<C-r>`|Redo (like a stack)|
 
+## Modifiers
+***TODO***
+
 
 ## Counts
 You can prefix any nouns (movements) or verbs (edits) or other commands in the `NORMAL` or `VISUAL` modes to repeat the task.
 > Syntax: `{count}<noun/verb command>`
 
 Example: `5j` moves 5 lines down, `3w` moves 3 words forward, `d6w` deletes 6 words, `3p` pastes what was yanked 3 times, `5dd` means delete 5 lines and so on
+
+## Complete VIM grammar structure for all commands
+The complete picture is 
+```
+[count] + verb + [modifier] + [count] + noun
+                 └── if modifier present → noun must be a text object
+                 └── if no modifier → noun is a motion
+```
+Common examples: ***TODO***
 
 ## `COMMAND` Mode
 All commands **MUST** be prefixed by `:` to enter `COMMAND` mode
