@@ -30,12 +30,16 @@ Can be used independently (without verbs or modifiers)
 ---
 |Command|What it is used for|
 |:-----:|-------------------|
-|`w`|Move forward one word at the beginning (individual words are separated by whitespaces or - so **supports other separators**)|
-|`W`|Move forward one word (indivdual words are considered to be separated by **spaces only**)
+|`w`|Move forward one word at the beginning|
+|`W`|Move forward one WORD at the beginning|
 |`b`|Move back one word at the beginning|
-|`e`|Move by words but at the end of the word (words considered to be separated by whutespaces AND special chars like -)|
-|`E`|Move by words but at the end of the word (words only considered to be separated by whitespaces)|
-### Special Motions (can be used for verbs accepting motions too)
+|`B`|Move back one WORD at the beginning|
+|`e`|Move forward one word at the end|
+|`E`|Move forward one WORD at the end|
+|`ge`|Move back one word at the end|
+|`gE`|Move back one WORD at the end|
+
+### Line/Paragraph/Screen
 ---
 |Command|What it is used for|
 |:-----:|-------------------|
@@ -51,15 +55,27 @@ Can be used independently (without verbs or modifiers)
 |`M`| Jump to middle of visible screen|
 |`L`| Jump to bottom of visible screen|
 
-### Miscellaneous
+### Paragraph/Code Blocks
 ---
 |Command|What it is used for|
 |:-----:|-------------------|
-|`%`|Jump to matching character (e.g. when in a `(`, this will jump to matching `)`)
+|`%`|Jump to matching character (e.g. when in a `(`, this will jump to matching `)`)|
+|`{`|Jump backward to previous empty line (**start of paragraph**)|
+|`}`|Jump forward to next empty line (**end of paragraph**)|
+|`[[`|Jump backward to the beginning of **previous** code section or function (e.g. opening `{` for a function)|
+|`]]`|Jump forward to the beginning of **next** code section or function (e.g. opening `{` for a function)|
+|`[]`|Jump backward to the end of **previous** code section or function (e.g. closing `}` for a function)|
+|`][`|Jump forward to the end of **next** code section or function (e.g. closing `}` for a function)|
+### Find/Till in **current line**
+---
+|Command|What it is used for|
+|:-----:|-------------------|
 |`t{character}`|Jumps **till** just before the **next** matching character in the current line. (e.g. `t*` jumps just before the next `*` in the line)|
 |`f{character}`|Jumps **to** the **next** matching character in the current line. (e.g. `f*` jumps to the next `*` in the line)|
 |`T{character}`|Jumps **till** just before the **previous** matching character in the current line. (e.g. `T*` jumps just before the previous `*` in the line)|
 |`F{character}`|Jumps **to** the **previous** matching character in the current line. (e.g. `F*` jumps to the previous `*` in the line)|
+|`,`| Find the **previous** `f/F/t/T` in that line|
+|`;`| Find the **next** `f/F/t/T` in that line|
 ## Verbs (a.k.a. actions)
 Used to do something to the selected word (or motion), basically like grammar it **does** something to a noun (or a noun with a modifier or counts). Works in `NORMAL` or `VISUAL` modes when navigating or selecting text.
 
@@ -120,6 +136,7 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`wq`| Composes the previous two to write all changes AND then quit (order important - you will write first **then** quit)|
 |`q!`| Quit without saving any changes
 |`<line number>`|Go to `<line number>` (e.g. `:6` goes to the **end** of line 6)|
+|`help <cmd>`|Opens the official doc entry for that command|
 
 ### Common options (also for scripting)
 ---
