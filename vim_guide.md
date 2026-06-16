@@ -4,7 +4,9 @@ Vim is a **modal editor**. The keys and keyboards work differently based on whic
 
 By default, we are in `NORMAL` mode, which does not allow editing text, but you can navigate text buffers very easily by using Movement keys, or insert/replace at specific positions using cool keybindings.
 
-Modes of interest are:
+Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=ygUKdmltIGNvdXJzZQ%3D%3D) by [Florian Dedov](https://github.com/NeuralNine) for further guidance.
+
+## Modes of Interest
 
 |Mode|Used for|How to enter it (from `NORMAL` mode)|
 |:----|:--------|:------------------------------------|
@@ -28,6 +30,10 @@ Can be used independently (without verbs or modifiers)
 
 ### Word Movement
 ---
+> **NOTE:** Important distinction between word/WORD definitions:
+> - **Word**: Group of alphanumeric characters separated by whitespaces **OR** special characters like `-` or `()`
+> - **WORD**: Group of alphanumeric characters seprated by whitespaces **ONLY**
+
 |Command|What it is used for|
 |:-----:|-------------------|
 |`w`|Move forward one word at the beginning|
@@ -97,7 +103,8 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`D`|Deletes from cursor position to end of line (same as `d$`)|
 |`Y`|Copies the **full** line (same as `yy`)|
 |`C`|Changes from cursor position to end of line (same as `c$`)|
-|`r`|Replace **one** character (the current one) and go back to `NORMAL` mode
+|`r`|Replace **one** character (the current one) and go back to `NORMAL` mode|
+|`x`|Delete the focused character|
 ### Undo/Redo
 ---
 |Command|What it is used for|
@@ -105,15 +112,14 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`u`|Undo (like a stack)|
 |`<C-r>`|Redo (like a stack)|
 
-## Modifiers
-***TODO***
-
-
 ## Counts
 You can prefix any nouns (movements) or verbs (edits) or other commands in the `NORMAL` or `VISUAL` modes to repeat the task.
 > Syntax: `{count}<noun/verb command>`
 
 Example: `5j` moves 5 lines down, `3w` moves 3 words forward, `d6w` deletes 6 words, `3p` pastes what was yanked 3 times, `5dd` means delete 5 lines and so on
+
+## Modifiers
+***TODO***
 
 ## Complete VIM grammar structure for all commands
 The complete picture is 
