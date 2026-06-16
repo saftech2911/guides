@@ -28,7 +28,8 @@ Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode
 ---
 |Command|What it is used for|
 |:-----:|-------------------|
-|`w`|Move forward one word at the beginning|
+|`w`|Move forward one word at the beginning (individual words are separated by whitespaces or - so **supports other separators**)|
+|`W`|Move forward one word (indivdual words are considered to be separated by **spaces only**)
 |`b`|Move back one word at the beginning|
 |`e`|Move by words but at the end of the word|
 
@@ -63,6 +64,10 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`dd`|Delete current line. (Special case of `d`)|
 |`yy`|Copy current line. (Special case of `y`)|
 |`cc`|Changes the current line (special case of `c`)|
+|`D`|Deletes from cursor position to end of line (same as `d$`)|
+|`Y`|Copies the **full** line (same as `yy`)|
+|`C`|Changes from cursor position to end of line (same as `c$`)|
+|`r`|Replace **one** character (the current one) and go back to `NORMAL` mode
 ### Undo/Redo
 ---
 |Command|What it is used for|
