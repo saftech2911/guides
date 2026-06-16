@@ -31,8 +31,8 @@ Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode
 |`w`|Move forward one word at the beginning (individual words are separated by whitespaces or - so **supports other separators**)|
 |`W`|Move forward one word (indivdual words are considered to be separated by **spaces only**)
 |`b`|Move back one word at the beginning|
-|`e`|Move by words but at the end of the word|
-
+|`e`|Move by words but at the end of the word (words considered to be separated by whutespaces AND special chars like -)|
+|`E`|Move by words but at the end of the word (words only considered to be separated by whitespaces)|
 ### Special Motions (can be used for verbs accepting motions too)
 ---
 |Command|What it is used for|
