@@ -42,10 +42,22 @@ Used to navigate, move around, or select text. Used in `NORMAL` or `VISUAL` mode
 |`$`|Move to end of line|
 |`gg`|Move to the beginning of the first line in the file|
 |`G`|Move to the end of the last line in the file|
+|`<line no>G`|Go to beginning of `line no` (e.g. `70G` goes to line 70)|
 |`{`|Jump backward to previous empty line (**start of paragraph**)|
 |`}`|Jump forward to next empty line (**end of paragraph**)|
+|`H`| Jump to top of visible screen|
+|`M`| Jump to middle of visible screen|
+|`L`| Jump to bottom of visible screen|
 
-
+### Miscellaneous
+---
+|Command|What it is used for|
+|:-----:|-------------------|
+|`%`|Jump to matching character (e.g. when in a `(`, this will jump to matching `)`)
+|`t{character}`|Jumps **till** just before the **next** matching character in the current line. (e.g. `t*` jumps just before the next `*` in the line)|
+|`f{character}`|Jumps **to** the **next** matching character in the current line. (e.g. `f*` jumps to the next `*` in the line)|
+|`T{character}`|Jumps **till** just before the **previous** matching character in the current line. (e.g. `T*` jumps just before the previous `*` in the line)|
+|`F{character}`|Jumps **to** the **previous** matching character in the current line. (e.g. `F*` jumps to the previous `*` in the line)|
 ## Verbs (a.k.a. actions)
 Used to do something to the selected word (or motion), basically like grammar it **does** something to a noun (or a noun with a modifier or counts). Works in `NORMAL` or `VISUAL` modes when navigating or selecting text.
 
