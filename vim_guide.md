@@ -11,9 +11,9 @@ Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=y
 |Mode|Used for|How to enter it (from `NORMAL` mode)|
 |:----|:--------|:------------------------------------|
 |`NORMAL`|Navigating text buffers quickly **without** changing text (But can change at specific positions by entering `INSERT` mode with special keybindings - like for appending or changing inside/around something)|Its the default mode. Go here from any mode by pressing `Esc`
-|`INSERT`|Used for editing text normally like regular editors. **NOTE** there are special keybindings too to enter or replace text at specific positions| <ul><li>`i` for regular insertion anywhere (**before** focused character)</li><li>`a` for appending **after** current character</li><li>`A` for appending to end of **line**</li><li>`I` for inserting at **beginning** of line</li><li>`o` for getting a new line **below** current line and then inserting.</li><li>`O` for getting a new line **above** current line and then inserting.</li><li>`c{motion}` for changing sth specific (`cw` for changing word, `ci(` for changing inside parenthesis)</li></ul>|
+|`INSERT`|Used for editing text normally like regular editors. **NOTE** there are special keybindings too to enter or replace text at specific positions| <ul><li>`i` for regular insertion anywhere (**before** focused character)</li><li>`a` for appending **after** current character</li><li>`A` for appending to end of **line**</li><li>`I` for inserting at **beginning** of line</li><li>`o` for getting a new line **below** current line and then inserting.</li><li>`O` for getting a new line **above** current line and then inserting.</li><li>`c{motion}` for changing sth specific (`cw` for changing word, `ci(` for changing inside parenthesis)</li><li>`gi` for entering `INSERT` mode where you last exited `INSERT` mode (i.e. at the `^` mark!)</li></ul>|
 |`REPLACE`|Similar to `INSERT`, but this **replaces** existing text instead of adding text| Press `R`|
-|`VISUAL`|Select text using keyboard to delete, copy/yank, etc.|<ul><li>`v` for selecting by character</li><li>`V` for selecting by **line**</li><li>`<C-v>` for selecting **blocks** of text across lines.</ul>
+|`VISUAL`|Select text using keyboard to delete, copy/yank, etc.|<ul><li>`v` for selecting by character</li><li>`V` for selecting by **line**</li><li>`<C-v>` for selecting **blocks** of text across lines.</li><li>`gv` for entering `VISUAL` mode in last selection.</li></ul>
 |`COMMAND`|Used for typing vim script commands or common commands for navigation, setting options, or writing changes or quitting vim| Press `:` followed by the command, like `q` for quit, `w` for write, `wq` for write and quit, `q!` for quit without saving changes, etc.
 
 ## Motions (Nouns)
@@ -27,7 +27,8 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |Command|What it is used for|
 |:-----:|-------------------|
 |`<arrow keys>`|Move up, down, left, right (what noobs do)|
-|`hjkl`|`h` moves left, `j` moves down, `k` moves up, `l` moves right (what real Vim users do)
+|`hjkl`|`h` moves left, `j` moves down, `k` moves up, `l` moves right (what real Vim users do)|
+|`gj`/`gk`| Move down/up by *screen line* (seful when the line wraps to span multiple visual lines)
 
 ### Word Movement
 ---
@@ -53,6 +54,7 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |`0`|Move to beginning of line|
 |`^`|Move to first non-blank character in line|
 |`$`|Move to end of line|
+|`g_`|Move to last non-blank character in line|
 |`gg`|Move to the beginning of the first line in the file|
 |`G`|Move to the end of the last line in the file|
 |`<line no>G`|Go to beginning of `line no` (e.g. `70G` goes to line 70)|
@@ -83,6 +85,53 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |`F{character}`|Jumps **to** the **previous** matching character in the current line. (e.g. `F*` jumps to the previous `*` in the line)|
 |`,`| Find the **previous** `f/F/t/T` in that line|
 |`;`| Find the **next** `f/F/t/T` in that line|
+
+### Search
+---
+Finds matches in the text (using regex for `/` or `?` and whole words for `*` and `#`).
+
+Can be used with verbs as well. For example, `d/error` deletes everything from cursor position till the **next** occurence of `error` (Forward search).
+|Command|What it is used for|
+|:-----:|-------------------|
+|`/<regex>`|Searches for regex pattern **forward**|
+|`?<regex>`|Searches for regex pattern **backward**|
+|`n`|Goes to **next** match|
+|`N`|Goes to **previous** match|
+|`*`|Search word/token under cursor **forward**|
+|`#`|Search word/tokenn under cursor **backward**|
+
+### Marks
+---
+Used to leave waypoints/bookmark positions in text we frequently visit so that we can jump to those positions later on using a single keybind. Once a mark is set, it can be used with verbs as well since they are motions.
+
+#### Basic Marks and motions
+|Command|What it is used for|
+|:-----:|-------------------|
+|`m{char}`| Set mark on focused position **(NOT A MOTION! JUST A WAY TO SET A MARK!)**|
+|`'{char}`|Jump to the **line** of mark|
+|`` `{char} ``| Jump to **exact position** of mark|
+
+#### Types of Marks
+|Type|What it is used for|
+|:-----:|-------------------|
+|`a-z`| Buffer-local : only valid within the file we set them in|
+|`A-Z`| Global: valid across files. Will open the file if it is closed|
+
+#### Special built in marks
+Refer to these the same way as regular marks: `'` for beginning of line with mark, `` ` `` for the exact position of mark.
+|Type|What it is used for|
+|:-----:|-------------------|
+|`0-9`| Marks cursor position when each Vim **process** is quit (*NOT PER FILE OR ACROSS FILES,* ***JUST SESSIONS***). 0 is where last vim process was quit, 1 is when the second last one is quit, and so on.|
+|`'` or `` ` ``| Marks cursor position before last jump|
+|`"`| Marks cursor position where I exited this file (one per file)|
+|`.`| Position of last change (any change, even in `NORMAL` mode through verbs like `d` outside `INSIDE` mode)|
+|`^`| Position of last change in `INSERT` mode|
+|`[`| Start of last change/yank (change is ANY change)|
+|`]`| End of last change/yank (change is ANY change)|
+|`<`| Start of last selection in `VISUAL` mode|
+|`>`| End of last selection in `VISUAL` mode|
+
+> **Difference between `[]` and `^.` for changes:** `^.` remembers only **ONE** position (the LAST positon) of change, whereas `[]` remembers the WHOLE range (start/end).
 ## Verbs (a.k.a. actions)
 Used to do something to the selected word (or motion), basically like grammar it **does** something to a noun (or a noun with a modifier or counts). Works in `NORMAL` or `VISUAL` modes when navigating or selecting text.
 
@@ -107,7 +156,7 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`r`|Replace **one** character (the current one) and go back to `NORMAL` mode|
 |`x`|Delete the focused character|
 |`s`|Substitute the focused character|
-
+|`.`|Repeat the last action|
 ### Indentation
 ---
 > **NOTE**: Auto-indent (`=`) works best with languages using braces for code blocks, like C or Java. It doesn't work too well with languages like Python where code blocks themselves are indicated by indents.
