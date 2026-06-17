@@ -219,7 +219,7 @@ These **CANNOT** be used standalone at all, always need i/a modifiers, and alway
 |`` ` ``| Backtick quoted string (inside/around `` ` ` ``)|
 |`t`|HTML/XML tag|
 
-## Complete VIM grammar structure for all commands
+## Complete VIM grammar structure for all commands in `NORMAL` mode
 The complete picture is 
 ```
 [count] + verb + [modifier] + [count] + noun
