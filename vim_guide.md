@@ -1,6 +1,6 @@
 # Vim Guide for Safwan
 
-Vim is a **modal editor**. The keys and keyboards work differently based on which mode you are, making it extremely powerful in various contexts.
+Vim is a **modal editor**. The keys and keybindings work differently based on which mode you are, making it extremely powerful in various contexts.
 
 By default, we are in `NORMAL` mode, which does not allow editing text, but you can navigate text buffers very easily by using Movement keys, or insert/replace at specific positions using cool keybindings.
 
@@ -160,6 +160,7 @@ Used to do something to the selected word (or motion), basically like grammar it
 ### Indentation
 ---
 > **NOTE**: Auto-indent (`=`) works best with languages using braces for code blocks, like C or Java. It doesn't work too well with languages like Python where code blocks themselves are indicated by indents.
+
 |Command|What it is used for|
 |:-----:|-------------------|
 |`>{motion}`| Indent (shift right)|
