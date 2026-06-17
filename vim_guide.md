@@ -58,11 +58,10 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |`gg`|Move to the beginning of the first line in the file|
 |`G`|Move to the end of the last line in the file|
 |`<line no>G`|Go to beginning of `line no` (e.g. `70G` goes to line 70)|
-|`{`|Jump backward to previous empty line (**start of paragraph**)|
-|`}`|Jump forward to next empty line (**end of paragraph**)|
 |`H`| Jump to top of visible screen|
 |`M`| Jump to middle of visible screen|
 |`L`| Jump to bottom of visible screen|
+
 
 ### Paragraph/Code Blocks
 ---
@@ -131,7 +130,18 @@ Refer to these the same way as regular marks: `'` for beginning of line with mar
 |`<`| Start of last selection in `VISUAL` mode|
 |`>`| End of last selection in `VISUAL` mode|
 
-> **Difference between `[]` and `^.` for changes:** `^.` remembers only **ONE** position (the LAST positon) of change, whereas `[]` remembers the WHOLE range (start/end).
+> **Difference between `[]` and `^.` for changes:** `^.` remembers only **ONE** position (the LAST positon) of change, whereas `[]` remembers the WHOLE range (start/end)
+
+## Scrolling
+|Command|What it is used for|
+|:-----:|-------------------|
+|`zz` | Center current selection|
+|`zt`| Scroll current selection to top|
+|`zb` | Scroll current selection to bottom|
+|`<C-f>`| Full page down|
+|`<C-b>`|Full page up|
+|`<C-u>`|Half page up|
+|`<c-b>`|Half page down|
 ## Verbs (a.k.a. actions)
 Used to do something to the selected word (or motion), basically like grammar it **does** something to a noun (or a noun with a modifier or counts). Works in `NORMAL` or `VISUAL` modes when navigating or selecting text.
 
