@@ -88,7 +88,7 @@ Used to do something to the selected word (or motion), basically like grammar it
 
 > **COMMON SHORTCUT:** Doubling an operator applies that action to the entire current line. For ex, `dd` means delete current line, `yy` means yank current line, and so on.
 
-> **NOTE:** Motion can be any noun with modifier or counts, like `d3w` mean delete the next 3 words, or `di(` means delete inside parentheses. Can also be special motions, like `d$` deletes till end of line. Motion can also be selected text in `VISUAL` Mode.
+> **NOTE:** Motion can be any noun with modifier or counts, like `d3w` mean delete the next 3 words, or `dj` deletes current line **and below**, `>3j` indents current line and 3 lines below it, or `di(` means delete inside parentheses. Can also be special motions, like `d$` deletes till end of line. Motion can also be selected text in `VISUAL` Mode.
 ### Common Operations
 ---
 |Command|What it is used for|
@@ -106,6 +106,19 @@ Used to do something to the selected word (or motion), basically like grammar it
 |`C`|Changes from cursor position to end of line (same as `c$`)|
 |`r`|Replace **one** character (the current one) and go back to `NORMAL` mode|
 |`x`|Delete the focused character|
+|`s`|Substitute the focused character|
+
+### Indentation
+---
+|Command|What it is used for|
+|:-----:|-------------------|
+|`>{motion}`| Indent (shift right)|
+|`<{motion}`|Unindent (shift left)|
+|`={motion}`| Auto-indent (reformats according to filetype rules)|
+|`>>`|Indent current line|
+|`<<`|Unindent current line|
+|`==`|Auto-indent current line|
+
 ### Undo/Redo
 ---
 |Command|What it is used for|
@@ -118,6 +131,8 @@ You can prefix any nouns (movements) or verbs (edits) or other commands in the `
 > Syntax: `{count}<noun/verb command>`
 
 Example: `5j` moves 5 lines down, `3w` moves 3 words forward, `d6w` deletes 6 words, `3p` pastes what was yanked 3 times, `5dd` means delete 5 lines and so on
+
+> **NOTE:** Combining counts with double oprerators (for lines) multiplies the line wise scope. Example: `5dd` deletes 5 lines, `6>>` indents 6 lines, and so on.
 
 ## Modifiers
 **Modifiers** are keys used between an operator (verb) and a text object (noun) to alter the scope of the action.
