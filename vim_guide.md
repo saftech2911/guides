@@ -142,6 +142,8 @@ Refer to these the same way as regular marks: `'` for beginning of line with mar
 |`<C-b>`|Full page up|
 |`<C-u>`|Half page up|
 |`<c-b>`|Half page down|
+
+**TODO: Add folding commands later when necessary after setting `foldmethod`**
 ## Verbs (a.k.a. actions)
 Used to do something to the selected word (or motion), basically like grammar it **does** something to a noun (or a noun with a modifier or counts). Works in `NORMAL` or `VISUAL` modes when navigating or selecting text.
 
