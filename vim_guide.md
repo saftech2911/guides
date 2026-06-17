@@ -124,8 +124,8 @@ Refer to these the same way as regular marks: `'` for beginning of line with mar
 |`0-9`| Marks cursor position when each Vim **process** is quit (*NOT PER FILE OR ACROSS FILES,* ***JUST SESSIONS***). 0 is where last vim process was quit, 1 is when the second last one is quit, and so on.|
 |`'` or `` ` ``| Marks cursor position before last jump|
 |`"`| Marks cursor position where I exited this file (one per file)|
-|`.`| Position of last change (any change, even in `NORMAL` mode through verbs like `d` outside `INSIDE` mode)|
-|`^`| Position of last change in `INSERT` mode|
+|`.`| Position of last change (any change, even in `NORMAL` mode through verbs like `d` outside `INSERT` mode)|
+|`^`| Position where we last exit `INSERT` mode|
 |`[`| Start of last change/yank (change is ANY change)|
 |`]`| End of last change/yank (change is ANY change)|
 |`<`| Start of last selection in `VISUAL` mode|
@@ -240,7 +240,7 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`q`|Quit Vim (works only if no change are made, OR if all changes are saved.)
 |`wq`| Composes the previous two to write all changes AND then quit (order important - you will write first **then** quit)|
 |`q!`| Quit without saving any changes
-|`<line number>`|Go to `<line number>` (e.g. `:6` goes to the **end** of line 6)|
+|`<line number>`|Go to `<line number>` (e.g. `:6` goes to line 6)|
 |`help <cmd>`|Opens the official doc entry for that command|
 
 ### Common options (also for scripting)
