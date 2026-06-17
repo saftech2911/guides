@@ -151,6 +151,8 @@ These **CANNOT** be used standalone at all, always need i/a modifiers, and alway
 |`<` or `>`| Angle bracket block (inside/around `<>`)|
 |`"`| Double quoted string (inside/around `""`)|
 |`'`| Single quoted string (inside/around `''`)|
+|`` ` ``| Backtick quoted string (inside/around `` ` ` ``)|
+|`t`|HTML/XML tag|
 
 ## Complete VIM grammar structure for all commands
 The complete picture is 
