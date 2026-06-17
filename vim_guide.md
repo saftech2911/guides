@@ -110,6 +110,7 @@ Used to do something to the selected word (or motion), basically like grammar it
 
 ### Indentation
 ---
+> **NOTE**: Auto-indent (`=`) works best with languages using braces for code blocks, like C or Java. It doesn't work too well with languages like Python where code blocks themselves are indicated by indents.
 |Command|What it is used for|
 |:-----:|-------------------|
 |`>{motion}`| Indent (shift right)|
