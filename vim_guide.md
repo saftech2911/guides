@@ -1,10 +1,10 @@
-# Vim Cheatsheet for Safwan
+# Vim Guide for Safwan
 
 Vim is a **modal editor**. The keys and keyboards work differently based on which mode you are, making it extremely powerful in various contexts.
 
 By default, we are in `NORMAL` mode, which does not allow editing text, but you can navigate text buffers very easily by using Movement keys, or insert/replace at specific positions using cool keybindings.
 
-Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=ygUKdmltIGNvdXJzZQ%3D%3D) by [Florian Dedov](https://github.com/NeuralNine) for further guidance.
+Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=ygUKdmltIGNvdXJzZQ%3D%3D) by [Florian Dedov](https://github.com/NeuralNine) for further conceptual guidance.
 
 ## Modes of Interest
 
