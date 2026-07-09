@@ -243,6 +243,14 @@ Common examples: ***TODO***
 
 ## `COMMAND` Mode
 All commands **MUST** be prefixed by `:` to enter `COMMAND` mode
+
+The `COMMAND` mode operates on ***line ranges and pattern matching*** — you tell it explicitly which lines to act on and what pattern to look for, rather than relying on cursor position at all. (This is in contrast to the `NORMAL` or `VISUAL` mode's cursor position and motions model)
+
+So the basic grammar syntax for this mode is:
+```
+:[range]command[arguments]
+```
+> **NOTE:** Not all commands accept ranges (like `w`, `q`).
 ### Basic navigation
 Common commands I will encounter daily for making changes, quitting, etc. 
 |Command|What it is used for|
