@@ -233,7 +233,10 @@ These **CANNOT** be used standalone at all, always need i/a modifiers, and alway
 |`t`|HTML/XML tag|
 
 ## Complete VIM grammar structure for all commands in `NORMAL` mode
-The complete picture is 
+The `NORMAL` and `VISUAL` mode commands operate on the concept of a cursor position. Motions move it, operators act relative to it, text objects act around it. 
+
+The complete picture therefore is 
+
 ```
 [count] + verb + [modifier] + [count] + noun
                  └── if modifier present → noun must be a text object
@@ -244,13 +247,17 @@ Common examples: ***TODO***
 ## `COMMAND` Mode
 All commands **MUST** be prefixed by `:` to enter `COMMAND` mode
 
-The `COMMAND` mode operates on ***line ranges and pattern matching*** — you tell it explicitly which lines to act on and what pattern to look for, rather than relying on cursor position at all. (This is in contrast to the `NORMAL` or `VISUAL` mode's cursor position and motions model)
+The `COMMAND` mode operates on ***line ranges and pattern matching*** — you tell it explicitly which lines to act on and what pattern to look for, rather than relying on cursor position at all. (This is in contrast to the `NORMAL` or `VISUAL` mode's cursor position and motions model). The command is then executed on the patterns on each line within the range you specify.
 
 So the basic grammar syntax for this mode is:
 ```
 :[range]command[arguments]
 ```
-> **NOTE:** Not all commands accept ranges (like `w`, `q`).
+- **Range:** which lines to apply the command to (special notations for common groups of lines available)
+- **Command:** The command to execute on each line (These commands are NOT the same as the commands in NORMAL mode! Some *different* commands like `>` happen to look the same as the `>` verb in `NORMAL`).
+- **Argument:** Specifics for that command (a pattern, a filename, flags, etc.)
+> **NOTE:** Not all commands accept ranges (like `w`, `q`). Think about which ones actually act on lines, they can take ranges.
+
 ### Basic navigation
 Common commands I will encounter daily for making changes, quitting, etc. 
 |Command|What it is used for|
