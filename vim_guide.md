@@ -258,7 +258,36 @@ So the basic grammar syntax for this mode is:
 - **Argument:** Specifics for that command (a pattern, a filename, flags, etc.)
 > **NOTE:** Not all commands accept ranges (like `w`, `q`). Think about which ones actually act on lines, they can take ranges.
 
+### Range syntax
+---
+These specify which lines you want the command to be executed on.
+|Command|What it is used for|
+|:-----:|-------------------|
+|(nothing)|The current line|
+|`.`| The current line (Same as above, but more explicit)|
+|`<line no.>`| Operate on that specific line (e.g. `:5` will operate on line 5)|
+|`x,y`| Operate on lines `x` through `y` (e.g. `5,10` works on lines 5 through 10)|
+|`$`| Operate on last line|
+|`%`|Operate on entire line (shorthand for `1,$`) |
+|`'a,'b`| From mark `a` to mark `b` (Can be used with any type of mark)|
+|`'<,'>`| Operate on the *last* selection in `VISUAL` mode (example of the previous)|
+|`.+n` or `.-n`| `n` lines after or before the current line|
+|`0`| A virtual line ***before*** line 1 (Useful for inserting something *before* the first line)|
+|`/pattern/`| Searches for line matching `pattern` forward (i.e. after the current line)|
+|`?pattern?` | Searches for current line marching `pattern` backward (i.e. after the current line)|
+
+> **NOTE on pattern syntax:** The syntax works by starting/ending the range at the lines matching the specified regex pattern. For example, `/pattern-start/,/pattern-end/d` deletes the line range staring from line with `/pattern-start/` and ending at line with `/pattern-end/`
+
+> **NOTE:** Range syntax can be combined, like `.,/pattern/` means start from current line till line matching `/pattern/`
+
+### Important commands 
+---
+|Command|Pattern of usage|Guide|Flags|Example|
+|:-----:|:---------------:|------------------|------|-----|
+|`s`|`:[range]s/pattern/replacement/[flags]`|Replaces `/pattern/` with `/replacement/` in lines in `range`|<ul><li>`g` - all matches per line (without this it only replaces first match in current line)</li><li>`c` -  confirm each change before doing</li><li>`i` - Case insensitive for this sustitution</li><li> `I` - case sensitive for this substitution</li><li>`n` - Don't actually substitute, report how many matches would be affected.</ul> You can combine mutiple flags too.|`:%s/error/feature/g` replaces `error` with `feature` in the whole file, and also all occurences in each line|
+
 ### Basic navigation
+---
 Common commands I will encounter daily for making changes, quitting, etc. 
 |Command|What it is used for|
 |:-----:|-------------------|
