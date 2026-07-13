@@ -87,6 +87,20 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |`,`| Find the **previous** `f/F/t/T` in that line|
 |`;`| Find the **next** `f/F/t/T` in that line|
 
+### Search
+---
+Finds matches in the text (using regex for `/` or `?` and whole words for `*` and `#`).
+
+Can be used with verbs as well. For example, `d/error` deletes everything from cursor position till the **next** occurence of `error` (Forward search).
+|Command|What it is used for|
+|:-----:|-------------------|
+|`/<regex>`|Searches for regex pattern **forward**|
+|`?<regex>`|Searches for regex pattern **backward**|
+|`n`|Goes to **next** match|
+|`N`|Goes to **previous** match|
+|`*`|Search word/token under cursor **forward**|
+|`#`|Search word/token under cursor **backward**|
+
 ### Marks
 ---
 Used to leave waypoints/bookmark positions in text we frequently visit so that we can jump to those positions later on using a single keybind. Once a mark is set, it can be used with verbs as well since they are motions.
@@ -270,7 +284,24 @@ You do not create them, they are auto-managed by Vim based on what you yank/dele
 |`".`| Last inserted text, from your most recent `INSERT` mode session (**READ ONLY**)|
 |`":`| Last command executed in `COMMAND` mode (**READ ONLY**) (`@:` re-executes it - like a macro)|
 |`"/`| Last search pattern used (**READ ONLY**)|
-|`"=`| **Expression register** - It stores the Vim-script expression typed in, and for reading it evaluates the Vim-script expression and inserts it (e.g. in `NORMAL` mode `"5+3p` pastes `8` after current cursor position.)| 
+|`"=`| **Expression register** - It stores the Vim-script expression typed in, and for reading it evaluates the Vim-script expression and inserts it (e.g. in `NORMAL` mode `"=5+3p` pastes `8` after current cursor position.)| 
+
+## Macros
+Macros enable you to record a **sequence of keystrokes** and then repeat them later on. (Basically a more powerful version of the `.` command to repeat one action) Macros work by recording your keystrokes in a **named register** and can be played back by referencing that register using the `@` symbol.
+
+Replaying macros also work with counts, making macros even more powerful (see below).
+
+Relevant commands:
+
+|Command|What it is used for|
+|:-----:|-------------------|
+|`q{reg}`| Starts recording keystrokes in `reg`. **NOTE: `reg` is ONLY a named-register (a-z)** When `reg` is in uppercase (e.g. `qA`) it appends the keystrokes to the register contents|
+|`q`|Stop recording|
+|`@{reg}`| Replay the recorded macro once.|
+|`{count}@{register}`| Replay the macro `count` times (e.g. `2@a` replays the macro stored in `"a` 2 times)|
+|`@@`| Replay the last-executed macro (no need to specify register name)|
+
+> **NOTE:** If you use the `"{reg}` syntax with a register with macros (e.g. `"ap` in `NORMAL` mode), then Vim pastes the literal keystrokes in the buffer.
 
 ## Complete VIM grammar structure for all commands in `NORMAL` mode
 The `NORMAL` and `VISUAL` mode commands operate on the concept of a cursor position. Motions move it, operators act relative to it, text objects act around it. 
@@ -324,8 +355,8 @@ These specify which lines you want the command to be executed on.
 ---
 |Command|Pattern of usage|Guide|Flags|Example|
 |:-----:|:---------------:|-----------------------|------|-----|
-|`s`|`:[range]s/pattern/replacement/[flags]`|Replaces `/pattern/` with `/replacement/` in lines in `range`|<ul><li>`g` - all matches per line (without this it only replaces first match in current line)</li><li>`c` -  confirm each change before doing</li><li>`i` - Case insensitive for this sustitution</li><li> `I` - case sensitive for this substitution</li><li>`n` - Don't actually substitute, report how many matches would be affected.</ul> You can combine mutiple flags too.|`:%s/error/feature/g` replaces `error` with `feature` in the whole file, and also all occurences in each line|
-|`g`| `:g/pattern/command`| **Global command**. Finds every line matching `pattern` and executes `command` on those lines (**NOTE**: This does not require a range, it builds the range dynamically.)|`N/A`|`:g/TODO/d` will felete all lines containing `TODO`|
+|`s`|`:[range]s/pattern/replacement/[flags]`|Replaces `/pattern/` with `/replacement/` in lines in `range`|<ul><li>`g` - all matches per line (without this it only replaces first match in current line)</li><li>`c` -  confirm each change before doing</li><li>`i` - Case insensitive for this substitution</li><li> `I` - case sensitive for this substitution</li><li>`n` - Don't actually substitute, report how many matches would be affected.</ul> You can combine mutiple flags too.|`:%s/error/feature/g` replaces `error` with `feature` in the whole file, and also all occurences in each line|
+|`g`| `:g/pattern/command`| **Global command**. Finds every line matching `pattern` and executes `command` on those lines (**NOTE**: This does not require a range, it builds the range dynamically.)|`N/A`|`:g/TODO/d` will delete all lines containing `TODO`|
 |`normal`|`:[range]normal [keystrokes in NORMAL mode]`|This command instructs to stop parsing the next keystrokes in `command` mode, and to execute those keystrokes in each line in `range` in `NORMAL` mode.|`N/A`|`:5,10normal I#` will prepend a `#` at the beginning of lines 5 through 10, i.e. comments out lines 5 through 10 in Python.|
 |`d`|`:[range]d`| Deletes lines in `range`| `N/A`| `5,10d` deletes lines 5 through 10|
 |`y`|`:[range]y`| Yanks/copies them to a VIM register to be pasted later| `N/A`| `:5,10y` yanks lines 5 through 10`|
@@ -353,19 +384,6 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`<C-w> + h/j/k/l`| Move between split windows in specified direction|
 |`:noh`| Clear search highlighting|
 
-### Search
----
-Finds matches in the text (using regex for `/` or `?` and whole words for `*` and `#`).
-
-Can be used with verbs as well. For example, `d/error` deletes everything from cursor position till the **next** occurence of `error` (Forward search).
-|Command|What it is used for|
-|:-----:|-------------------|
-|`/<regex>`|Searches for regex pattern **forward**|
-|`?<regex>`|Searches for regex pattern **backward**|
-|`n`|Goes to **next** match|
-|`N`|Goes to **previous** match|
-|`*`|Search word/token under cursor **forward**|
-|`#`|Search work/token under cursor **backward**|
 
 ### Common options (also for scripting)
 ---
