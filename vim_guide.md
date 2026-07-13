@@ -283,8 +283,14 @@ These specify which lines you want the command to be executed on.
 ### Important commands 
 ---
 |Command|Pattern of usage|Guide|Flags|Example|
-|:-----:|:---------------:|------------------|------|-----|
+|:-----:|:---------------:|-----------------------|------|-----|
 |`s`|`:[range]s/pattern/replacement/[flags]`|Replaces `/pattern/` with `/replacement/` in lines in `range`|<ul><li>`g` - all matches per line (without this it only replaces first match in current line)</li><li>`c` -  confirm each change before doing</li><li>`i` - Case insensitive for this sustitution</li><li> `I` - case sensitive for this substitution</li><li>`n` - Don't actually substitute, report how many matches would be affected.</ul> You can combine mutiple flags too.|`:%s/error/feature/g` replaces `error` with `feature` in the whole file, and also all occurences in each line|
+|`g`| `:g/pattern/command`| **Global command**. Finds every line matching `pattern` and executes `command` on those lines (**NOTE**: This does not require a range, it builds the range dynamically.)|`N/A`|`:g/TODO/d` will felete all lines containing `TODO`|
+|`normal`|`:[range]normal [keystrokes in NORMAL mode]`|This command instructs to stop parsing the next keystrokes in `command` mode, and to execute those keystrokes in each line in `range` in `NORMAL` mode.|`N/A`|`:5,10normal I#` will prepend a `#` at the beginning of lines 5 through 10, i.e. comments out lines 5 through 10 in Python.|
+|`d`|`:[range]d`| Deletes lines in `range`| `N/A`| `5,10d` deletes lines 5 through 10|
+|`y`|`:[range]y`| Yanks/copies them to a VIM register to be pasted later| `N/A`| `:5,10y` yanks lines 5 through 10`|
+|`t` or `co`| `:[origin-range]t[dest-line]` OR `:[origin-range]co[dest-line]`| Copies lines in `origin-range` to be instantly pasted at `dest-line`|`N/A`|`:5,10t20` copies lines 5 through 10 and pastes them at line 20|
+|`m`|`:[origin-range]m[dest-line]`|Moves lines in `origin-range` to `dest-line` without duplicating them (same as cut/paste)|`N/A`| `:5,10m20` moves lines 5 through 10 to line 20|
 
 ### Basic navigation
 ---
