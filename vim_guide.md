@@ -6,6 +6,8 @@ By default, we are in `NORMAL` mode, which does not allow editing text, but you 
 
 Watch [Reference video](https://www.youtube.com/watch?v=RZ4p-saaQkc&t=2853s&pp=ygUKdmltIGNvdXJzZQ%3D%3D) by [Florian Dedov](https://github.com/NeuralNine) for further conceptual guidance.
 
+Read [this book](https://digtvbg.com/files/LINUX/Practical%20Vim%20-%20Drew%20Neil_1241.pdf) (Practical Vim by Drew Neil) for a more detailed Vim guide.
+
 ## Modes of Interest
 
 |Mode|Used for|How to enter it (from `NORMAL` mode)|
@@ -28,7 +30,7 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |:-----:|-------------------|
 |`<arrow keys>`|Move up, down, left, right (what noobs do)|
 |`hjkl`|`h` moves left, `j` moves down, `k` moves up, `l` moves right (what real Vim users do)|
-|`gj`/`gk`| Move down/up by *screen line* (seful when the line wraps to span multiple visual lines)
+|`gj`/`gk`| Move down/up by *screen line* (useful when the line wraps to span multiple visual lines)
 
 ### Word Movement
 ---
@@ -85,20 +87,6 @@ Can be used independently (without verbs or modifiers), OR with verbs to do some
 |`,`| Find the **previous** `f/F/t/T` in that line|
 |`;`| Find the **next** `f/F/t/T` in that line|
 
-### Search
----
-Finds matches in the text (using regex for `/` or `?` and whole words for `*` and `#`).
-
-Can be used with verbs as well. For example, `d/error` deletes everything from cursor position till the **next** occurence of `error` (Forward search).
-|Command|What it is used for|
-|:-----:|-------------------|
-|`/<regex>`|Searches for regex pattern **forward**|
-|`?<regex>`|Searches for regex pattern **backward**|
-|`n`|Goes to **next** match|
-|`N`|Goes to **previous** match|
-|`*`|Search word/token under cursor **forward**|
-|`#`|Search word/tokenn under cursor **backward**|
-
 ### Marks
 ---
 Used to leave waypoints/bookmark positions in text we frequently visit so that we can jump to those positions later on using a single keybind. Once a mark is set, it can be used with verbs as well since they are motions.
@@ -135,13 +123,13 @@ Refer to these the same way as regular marks: `'` for beginning of line with mar
 ## Scrolling
 |Command|What it is used for|
 |:-----:|-------------------|
-|`zz` | Center current selection|
-|`zt`| Scroll current selection to top|
-|`zb` | Scroll current selection to bottom|
+|`zz` | Center current line|
+|`zt`| Scroll current line to top|
+|`zb` | Scroll current line to bottom|
 |`<C-f>`| Full page down|
 |`<C-b>`|Full page up|
 |`<C-u>`|Half page up|
-|`<c-b>`|Half page down|
+|`<C-d>`|Half page down|
 
 **TODO: Add folding commands later when necessary after setting `foldmethod`**
 ## Verbs (a.k.a. actions)
@@ -268,13 +256,13 @@ These specify which lines you want the command to be executed on.
 |`<line no.>`| Operate on that specific line (e.g. `:5` will operate on line 5)|
 |`x,y`| Operate on lines `x` through `y` (e.g. `5,10` works on lines 5 through 10)|
 |`$`| Operate on last line|
-|`%`|Operate on entire line (shorthand for `1,$`) |
+|`%`|Operate on entire file (shorthand for `1,$`) |
 |`'a,'b`| From mark `a` to mark `b` (Can be used with any type of mark)|
 |`'<,'>`| Operate on the *last* selection in `VISUAL` mode (example of the previous)|
 |`.+n` or `.-n`| `n` lines after or before the current line|
 |`0`| A virtual line ***before*** line 1 (Useful for inserting something *before* the first line)|
 |`/pattern/`| Searches for line matching `pattern` forward (i.e. after the current line)|
-|`?pattern?` | Searches for current line marching `pattern` backward (i.e. after the current line)|
+|`?pattern?` | Searches for current line matching `pattern` backward (i.e. before the current line)|
 
 > **NOTE on pattern syntax:** The syntax works by starting/ending the range at the lines matching the specified regex pattern. For example, `/pattern-start/,/pattern-end/d` deletes the line range staring from line with `/pattern-start/` and ending at line with `/pattern-end/`
 
@@ -289,10 +277,12 @@ These specify which lines you want the command to be executed on.
 |`normal`|`:[range]normal [keystrokes in NORMAL mode]`|This command instructs to stop parsing the next keystrokes in `command` mode, and to execute those keystrokes in each line in `range` in `NORMAL` mode.|`N/A`|`:5,10normal I#` will prepend a `#` at the beginning of lines 5 through 10, i.e. comments out lines 5 through 10 in Python.|
 |`d`|`:[range]d`| Deletes lines in `range`| `N/A`| `5,10d` deletes lines 5 through 10|
 |`y`|`:[range]y`| Yanks/copies them to a VIM register to be pasted later| `N/A`| `:5,10y` yanks lines 5 through 10`|
+|`>`|`:[range]>`| Indents the lines in `range` | `N/A`| `:5,10>` indents lines 5 through 10|
+|`<`|`:[range]<`| unindents the lines in `range` | `N/A`| `:5,10<` unindents lines 5 through 10|
 |`t` or `co`| `:[origin-range]t[dest-line]` OR `:[origin-range]co[dest-line]`| Copies lines in `origin-range` to be instantly pasted at `dest-line`|`N/A`|`:5,10t20` copies lines 5 through 10 and pastes them at line 20|
 |`m`|`:[origin-range]m[dest-line]`|Moves lines in `origin-range` to `dest-line` without duplicating them (same as cut/paste)|`N/A`| `:5,10m20` moves lines 5 through 10 to line 20|
 
-### Basic navigation
+### Basic file operation/navigation commands
 ---
 Common commands I will encounter daily for making changes, quitting, etc. 
 |Command|What it is used for|
@@ -304,6 +294,25 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`q!`| Quit without saving any changes
 |`<line number>`|Go to `<line number>` (e.g. `:6` goes to line 6)|
 |`help <cmd>`|Opens the official doc entry for that command|
+|`e <filename>`| Opens a different file without leaving Vim|
+|`sp <filename>`| Split window **horizontally** and open a file there|
+|`vsp <filename>`| Split window **vertically** and open a file there|
+|`<C-w> + h/j/k/l`| Move between split windows in specified direction|
+|`:noh`| Clear search highlighting|
+
+### Search
+---
+Finds matches in the text (using regex for `/` or `?` and whole words for `*` and `#`).
+
+Can be used with verbs as well. For example, `d/error` deletes everything from cursor position till the **next** occurence of `error` (Forward search).
+|Command|What it is used for|
+|:-----:|-------------------|
+|`/<regex>`|Searches for regex pattern **forward**|
+|`?<regex>`|Searches for regex pattern **backward**|
+|`n`|Goes to **next** match|
+|`N`|Goes to **previous** match|
+|`*`|Search word/token under cursor **forward**|
+|`#`|Search work/token under cursor **backward**|
 
 ### Common options (also for scripting)
 ---
