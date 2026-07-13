@@ -220,6 +220,58 @@ These **CANNOT** be used standalone at all, always need i/a modifiers, and alway
 |`` ` ``| Backtick quoted string (inside/around `` ` ` ``)|
 |`t`|HTML/XML tag|
 
+## Registers
+
+Registers are like clipboards *inside Vim* which Vim uses to store text or macros which you can paste from or reuse. They are used behind the scenes whenever we yank/delete text.
+
+Vim has dozens of named storage slots, not just one, so you can hold several different pieces of text simultaneously and choose which one to paste from.
+
+> **To show the content of all registers, type `:reg` in `COMMAND` mode.**
+
+### Register usage
+---
+> **ALL REGISTER NAMES START WITH `"`**.
+To use the content of the registers, the syntax in `NORMAL` mode is `"{reg}{verb/paste}`, where `verb` is anything that specifically **yanks/deletes characters, NOT all verbs.** So verbs like `y`,`d`,`c`,`yy`,`dd`,`x`,`s` will work with registers, but `>>` won't.
+>
+> To use register content in `INSERT`/`COMMAND` mode, use `<C-r>{reg}` and press `Enter` to paste the contents of the register where you are typing.
+
+Some useful examples:
+
+|Command|What it is used for|
+|:-----:|-------------------|
+|`"{reg}y{motion}` or `{reg}yy`| Yanks motion or line into mentioned register instead of the default one (unnamed)|
+|`"{reg}d{motion}` or `{reg}dd`| Deletes motion or line and stores the text into mentioned register instead of the default one (unnamed)|
+|`"{reg}p` or `"{reg}P`| Pastes from mentioned register|
+|`"{REG}`| Using uppercase for register name **appends** into register instead of overwritting (e.g. `"Ayy` appends the line into register `a`, not write into another register `A`)|
+
+### User-settable registers
+---
+|Type|What it is used for|
+|:-----:|-------------------|
+|`a-z`| 26 named registers you can explicitly choose to delete/yank to/from|
+
+> **NOTE:** **THERE ARE** ***NO*** **CAPITAL-LETTER REGISTERS IN VIM MEMORY!** So `"Ayy` does not yank to a new register `A`, but just *appends* to existing register `a`.
+
+### Special built-in registers (Vim-managed)
+---
+You do not create them, they are auto-managed by Vim based on what you yank/delete.
+
+|Register|What it is used for|
+|:-----:|-------------------|
+|`""` (unnamed)| The default register used when you yank/delete without specifying (e.g. when you `yy` or `d7w`)|
+|`"0`| The **zero** register - holds specifically the **last** thing you ***yanked***. This survives even after you delete after yanking, unlike `""`|
+|`"1`-`"9`| Stores the last 9 **deletes**, so `"1` stores your most recent delete, `"2` stores the next one, and so on. THese track **full line or larger** deletes|
+|`"_`| The **black-hole** register - deleting/yanking into this deletes it **entirely** without affecting other registers.|
+|`"-`| Holds your most recent **small-delete** (less than one line) (spearate from numbered registers tracking full line deletes or larger)|
+|`"+`| The **system-clipboard** - used to copying to/pasting from outside Vim (e.g. `"+y"{motion}` yanks for pasting outside Vim, while `"+p` pastes content copied outside Vim)|
+|`"*`| **Primary-selection** (Specific to Linux/X11) - whatever was last **highlighted** with the mouse **anywhere on the system**. It is different from `"+` on Linux, but identical to `"+` on Windows/Mac|
+|`"%`| Current file name (**READ ONLY**)|
+|`"#`| Alternate file name (name of file edited *before* the current one) (**READ ONLY**)|
+|`".`| Last inserted text, from your most recent `INSERT` mode session (**READ ONLY**)|
+|`":`| Last command executed in `COMMAND` mode (**READ ONLY**) (`@:` re-executes it - like a macro)|
+|`"/`| Last search pattern used (**READ ONLY**)|
+|`"=`| **Expression register** - It stores the Vim-script expression typed in, and for reading it evaluates the Vim-script expression and inserts it (e.g. in `NORMAL` mode `"5+3p` pastes `8` after current cursor position.)| 
+
 ## Complete VIM grammar structure for all commands in `NORMAL` mode
 The `NORMAL` and `VISUAL` mode commands operate on the concept of a cursor position. Motions move it, operators act relative to it, text objects act around it. 
 
@@ -291,6 +343,7 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`w`| Write changes to file|
 |`q`|Quit Vim (works only if no change are made, OR if all changes are saved.)
 |`wq`| Composes the previous two to write all changes AND then quit (order important - you will write first **then** quit)|
+|`reg`| List content of all registers|
 |`q!`| Quit without saving any changes
 |`<line number>`|Go to `<line number>` (e.g. `:6` goes to line 6)|
 |`help <cmd>`|Opens the official doc entry for that command|
