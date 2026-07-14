@@ -313,7 +313,13 @@ The complete picture therefore is
                  └── if modifier present → noun must be a text object
                  └── if no modifier → noun is a motion
 ```
-Common examples: ***TODO***
+Common examples: 
+|Command|Description|
+|:-----:|-----------|
+|`d3w`| Delete 3 words|
+|`d$`| Delete till end of line|
+|`ci(`| Change inside parentheses (the text objects `()` are used here)|
+|`2d3w`| Delete 3 words twice/Delete 2 groups of 3 words (Basically delete 6 words - same as `d6w`)|
 
 ## `COMMAND` Mode
 All commands **MUST** be prefixed by `:` to enter `COMMAND` mode
@@ -394,8 +400,9 @@ Common commands I will encounter daily for making changes, quitting, etc.
 |`set number` OR `set nu`|Activates line number|
 |`set relativenumber` OR `set rnu`|Activates relative line number (relative to the current line). By default it shows current line as line 0, but if you `:set number` as well, it shows current line number for the current line and relative lines for others.|
 |`set mouse=a`|Activates mouse usage|
-|`set tabstop=4`|Changes tab whitespace to 4 characters|
-|`set shiftwidth=4`|Changes spacing of indentation to 4 characters|
+|`set tabstop=4`|Changes tab whitespace to 4 characters. This option specifies how many spaces will a literal tab character (`\t`) be represented as.|
+|`set shiftwidth=4`|Changes spacing of indentation to 4 characters. This is the option used by the `>>` commands for indentation.|
+|`set expandtab`| With this off, `Tab` meansa literal tab character `\t`. With this on, pressing `Tab` inserts the number of spaces specified by the `tabstop` option. `On` is necessary for Python.|
 |`colorscheme <some colorscheme>`|Changes colorscheme (examples are `slate`, `retrobox` and others, use `Tab` to go through the options)
 
 > **NOTE:** The current options are written in VimScript, which are used in `.vimrc` and `init.vim` natively. Modern neovim configurations are written in Lua in `init.lua`, so uuse the corresponding syntax
